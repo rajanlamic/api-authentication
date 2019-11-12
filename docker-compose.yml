@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  api:
+    image: sample-express-app
+    restart: always
+    build:
+      context:  .
+      dockerfile: ./Dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    volumes:
+      - ./authData:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE= auth
+    ports:
+      - 27017:27017

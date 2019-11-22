@@ -6,12 +6,12 @@ let UserSchema = new Schema({
 	first_name: {
 		type: String,
 		required: true,
-		validate: {
-			validator: function (v: any) {
-				return /rajan/.test(v);
-			},
-			message: (props: any) => `${props.value} is not a valid name!`
-		}
+		// validate: {
+		// 	validator: function (v: any) {
+		// 		return /rajan/.test(v);
+		// 	},
+		// 	message: (props: any) => `${props.value} is not a valid name!`
+		// }
 	},
 	last_name: { type: String, required: true },
 	primary_user_type_id: { type: Number, required: true },

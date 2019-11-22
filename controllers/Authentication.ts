@@ -7,10 +7,10 @@ import CONFIG from "../config/config.json"
 // const CONFIG = require('../config/config');
 
 class Authentication {
-    req: any;
-    res: any;
+	req: any;
+	res: any;
 
-	constructor(req: any, res:any) {
+	constructor(req: any, res: any) {
 		this.req = req;
 		this.res = res;
 	}
@@ -20,7 +20,7 @@ class Authentication {
 		return bcrypt.genSaltSync(saltRound);
 	}
 
-	generateHash(password: string, salt:string) {
+	generateHash(password: string, salt: string) {
 		return bcrypt.hashSync(password, salt);
 	}
 
@@ -89,7 +89,7 @@ class Authentication {
 		const userInput = this.req.body;
 		const { userName, password } = userInput;
 
-		UserModel.find({ user_name: userName }, 'user_name password salt', (err: any, data:any) => {
+		UserModel.find({ user_name: userName }, 'user_name password salt', (err: any, data: any) => {
 			if (err) {
 				this.res.send('error');
 			}
@@ -136,6 +136,26 @@ class Authentication {
 				userName: userName,
 				email: email
 			});
+		});
+	}
+
+	list() {
+		UserModel.find({}, 'user_name email first_name last_name title', (err: any, data: any[]) => {
+			if (err) {
+				this.res.send('error');
+			}
+
+			debugger
+			console.log('data', data)
+
+			// const userData = get(data, 0, []);
+			// const userName = userData.userName;
+			// const email = userData.email;
+			// const firstName = userData.first_name;
+			// const lastName = userData.last_name;
+			// const title = userData.title;
+
+			this.res.json(data);
 		});
 	}
 }
